@@ -20,3 +20,7 @@ std::string Number::toString() const {
     }
     return str;
 }
+
+double Number::getValue() const {
+    return value;
+}

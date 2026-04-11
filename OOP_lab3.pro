@@ -11,6 +11,7 @@ CONFIG += c++20
 SOURCES += \
     binary_operator.cpp \
     binary_operator_factory.cpp \
+    evaluator.cpp \
     main.cpp \
     mainwindow.cpp \
     number.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     cos_operation.h \
     ctg_operation.h \
     devide_operation.h \
+    evaluator.h \
     i_binary_operation.h \
     i_operation.h \
     i_unary_operation.h \
