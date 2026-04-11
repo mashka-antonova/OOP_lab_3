@@ -28,9 +28,9 @@ void ShuntingYard::flushRemainingOperators() {
     }
 }
 
-std::vector<std::unique_ptr<Token>> ShuntingYard::convertToRPN(std::vector<std::unique_ptr<Token>> infix) {
+std::vector<std::unique_ptr<Token>> ShuntingYard::convertToRPN(std::vector<std::unique_ptr<Token>> lexemes) {
     resetState();
-    for (auto& token : infix)
+    for (auto& token : lexemes)
         dispatch.at(token->type())(std::move(token));
     flushRemainingOperators();
     return std::move(output);

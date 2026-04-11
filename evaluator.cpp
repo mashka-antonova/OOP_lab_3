@@ -3,8 +3,8 @@
 #include "number.h"
 #include "unary_operator.h"
 #include "binary_operator.h"
-#include "string"
 
+#include <string>
 #include <stdexcept>
 
 Evaluator::Evaluator() {
@@ -56,20 +56,17 @@ std::vector<double> Evaluator::popArgs(int count) {
 }
 
 double Evaluator::popOne() {
-    double value;
-    if (!values.empty())
-        value = values.top();
-    else
+    if (values.empty())
         throw std::runtime_error("Evaluator: not enough operands on the stack");
+
+    double value = values.top();
     values.pop();
     return value;
 }
 
 double Evaluator::takeResult() {
-    double result;
-    if (values.size() == 1)
-        result = values.top();
-    else
+    if (values.size() != 1)
         throw std::runtime_error("Evaluator: invalid RPN, stack must contain exactly one value");
-    return result;
+
+    return values.top();
 }
