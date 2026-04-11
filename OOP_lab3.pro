@@ -15,6 +15,7 @@ SOURCES += \
     mainwindow.cpp \
     number.cpp \
     number_factory.cpp \
+    operation_factory.cpp \
     token.cpp \
     token_creator.cpp \
     tokenizer.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     multiply_operation.h \
     number.h \
     number_factory.h \
+    operation_factory.h \
     reciprocal_operation.h \
     sin_operation.h \
     sqrt_operation.h \
