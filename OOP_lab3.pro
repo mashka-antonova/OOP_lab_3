@@ -16,6 +16,7 @@ SOURCES += \
     number.cpp \
     number_factory.cpp \
     operation_factory.cpp \
+    shunting_yard.cpp \
     token.cpp \
     token_creator.cpp \
     tokenizer.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     number_factory.h \
     operation_factory.h \
     reciprocal_operation.h \
+    shunting_yard.h \
     sin_operation.h \
     sqrt_operation.h \
     subtract_operation.h \

@@ -25,6 +25,14 @@ public:
     virtual std::unique_ptr<Token> clone() const = 0;
     virtual std::string toString() const = 0;
 
+    virtual int getPrecedence() const {
+        return 0;
+    }
+
+    virtual Associativity getAssociativity() const {
+        return Associativity::Left;
+    }
+
     static std::vector<std::unique_ptr<Token>> cloneList(const std::vector<std::unique_ptr<Token>>& source); //возможно потом вынести выше(memento)
 };
 
