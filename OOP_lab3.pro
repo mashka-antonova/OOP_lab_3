@@ -15,6 +15,7 @@ SOURCES += \
     evaluator.cpp \
     main.cpp \
     mainwindow.cpp \
+    memory.cpp \
     number.cpp \
     number_factory.cpp \
     operation_factory.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     i_operation.h \
     i_unary_operation.h \
     mainwindow.h \
+    memory.h \
     multiply_operation.h \
     number.h \
     number_factory.h \

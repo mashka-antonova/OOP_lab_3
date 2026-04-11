@@ -20,3 +20,19 @@ double CalculatorFacade::calculate(const std::string& expression) {
     std::vector<std::unique_ptr<Token>> rpn = shuntingYard->convertToRPN(std::move(lexemes));
     return evaluator->evaluate(rpn);
 }
+
+void CalculatorFacade::memoryAdd(double value) {
+    memory->add(value);
+}
+
+void CalculatorFacade::memorySubtract(double value) {
+    memory->subtract(value);
+}
+
+void CalculatorFacade::memoryClear() {
+    memory->clear();
+}
+
+double CalculatorFacade::memoryRecall() const {
+    return memory->get();
+}
