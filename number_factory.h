@@ -6,7 +6,7 @@
 class NumberFactory : public TokenFactory
 {
 public:
-    std::unique_ptr<Token> create(const std::string& lexeme)  override;
+    std::unique_ptr<Token> create(const std::string& lexeme) override;
 };
 
 #endif // NUMBER_FACTORY_H

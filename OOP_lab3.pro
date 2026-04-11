@@ -23,19 +23,34 @@ SOURCES += \
     unary_operator_factory.cpp
 
 HEADERS += \
+    add_operation.h \
     binary_operator.h \
     binary_operator_factory.h \
+    cos_operation.h \
+    ctg_operation.h \
+    devide_operation.h \
+    i_binary_operation.h \
+    i_operation.h \
+    i_unary_operation.h \
     mainwindow.h \
+    multiply_operation.h \
     number.h \
     number_factory.h \
+    reciprocal_operation.h \
+    sin_operation.h \
+    sqrt_operation.h \
+    subtract_operation.h \
+    tg_operation.h \
     token.h \
     token_creator.h \
     token_factory.h \
     tokenizer.h \
     tokenizer_dependency_provider.h \
     tokenizer_error.h \
+    unary_minus_operation.h \
     unary_operator.h \
-    unary_operator_factory.h
+    unary_operator_factory.h \
+    unary_plus_operation.h
 
 FORMS += \
     mainwindow.ui
