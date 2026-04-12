@@ -78,7 +78,7 @@ std::vector<std::unique_ptr<Token>> Tokenizer::tokenize(const std::string& expre
     }
 
     if (tokens.empty())
-        throw TokenizerError("Empty expression", 0);
+        throw TokenizerError("Empty expression");
 
     return tokens;
 }
@@ -108,7 +108,7 @@ void Tokenizer::handleNumber(const std::string& expr, size_t& pos, TokenList& to
     std::string numStr = expr.substr(start, pos - start);
 
     if (numStr == ".")
-        throw TokenizerError("Invalid number: alone point", start);
+        throw TokenizerError("Invalid number: alone point");
 
     tokens.push_back(creator->createToken("number", numStr));
 }
@@ -123,7 +123,7 @@ void Tokenizer::handleWord(const std::string& expr, size_t& pos, TokenList& toke
 
     bool isKnown = creator->isOperator(word);
     if (!isKnown)
-        throw TokenizerError("Unknown function: '" + word + "'", start);
+        throw TokenizerError("Unknown function: '" + word + "'");
 
     tokens.push_back(creator->createToken(word, word));
 }
@@ -152,7 +152,7 @@ void Tokenizer::handleCloseParen(const std::string& expr, size_t& pos, TokenList
 }
 
 void Tokenizer::handleUnknown(const std::string& expr, size_t& pos, TokenList& tokens) const {
-    throw TokenizerError( std::string("Unexpected char: '") + expr[pos] + "'", pos);
+    throw TokenizerError( std::string("Unexpected char: '") + expr[pos] + "'");
 }
 
 bool Tokenizer::isUnaryContext(const TokenList& tokens) const {

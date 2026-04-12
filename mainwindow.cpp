@@ -98,6 +98,9 @@ void MainWindow::appendToDisplay(const QString& text)
 void MainWindow::onDigitClicked() {
     QPushButton* btn = qobject_cast<QPushButton*>(sender());
     if (btn) {
+        if (resultShown)
+            ui->display->clear();
+
         appendToDisplay(btn->text());
         resultShown = false;
     }
@@ -170,6 +173,9 @@ void MainWindow::onDeleteClicked() {
 void MainWindow::onFunctionClicked() {
     QPushButton* btn = qobject_cast<QPushButton*>(sender());
     if (!btn) return;
+
+    QString funcName = btn->text();
+    if (funcName == "1/x") funcName = "recip";
 
     if (resultShown) {
         QString current = ui->display->text();
