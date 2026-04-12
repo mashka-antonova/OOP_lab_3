@@ -10,6 +10,7 @@
 #include "i_command.h"
 #include "memory.h"
 #include "command_manager.h"
+#include "tokenizer_dependency_provider.h"
 
 class CalculatorFacade
 {
@@ -40,6 +41,7 @@ public:
     bool canRedo() const;
 
 private:
+    TokenizerDependencyProvider provider;
     std::unique_ptr<Tokenizer> tokenizer;
     ShuntingYard shuntingYard;
     Evaluator evaluator;

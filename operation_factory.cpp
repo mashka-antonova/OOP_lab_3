@@ -31,7 +31,7 @@ void OperationFactory::initCreators() {
     creators["tg"]  = []{ return std::make_unique<TgOperation>(); };
     creators["ctg"] = []{ return std::make_unique<CtgOperation>(); };
     creators["sqrt"] = []{ return std::make_unique<SqrtOperation>(); };
-    creators["recip"]  = []{ return std::make_unique<ReciprocalOperation>(); };
+    creators["1/x"]  = []{ return std::make_unique<ReciprocalOperation>(); };
 }
 
 std::unique_ptr<IOperation> OperationFactory::create(const std::string& name) const {

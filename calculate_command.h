@@ -11,14 +11,6 @@ public:
     void execute() override;
     void undo() override;
 
-    double getResult() const {
-        return result;
-    }
-
-    const std::string& getExpression() const{
-        return expression;
-    }
-
 private:
     CalculatorFacade* receiver;
     std::string expression;

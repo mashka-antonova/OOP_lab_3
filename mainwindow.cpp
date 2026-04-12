@@ -55,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnTg, &QPushButton::clicked, this, &MainWindow::onFunctionClicked);
     connect(ui->btnCtg, &QPushButton::clicked, this, &MainWindow::onFunctionClicked);
     connect(ui->btnSqrt, &QPushButton::clicked, this, &MainWindow::onFunctionClicked);
-    connect(ui->btnRecip, &QPushButton::clicked, this, &MainWindow::onReciprocalClicked);
+    connect(ui->btnRecip, &QPushButton::clicked, this, &MainWindow::onFunctionClicked);
 
     /*=====================================================================
                             память(M+, M-, MR, MC)
@@ -179,31 +179,6 @@ void MainWindow::onFunctionClicked() {
 
     } else
         appendToDisplay(btn->text() + "(");
-}
-
-void MainWindow::onReciprocalClicked() {
-    QString current = ui->display->text().trimmed();
-    if (!current.isEmpty()) {
-
-        bool isCorrect = false;
-        current.toDouble(&isCorrect);
-        if (!isCorrect)
-            QMessageBox::warning(this, QString::fromUtf8("Error"),
-                                 QString::fromUtf8("The 1/x operation applies only to a number"));
-        else {
-
-            try {
-                facade.compute(("1/(" + current + ")").toStdString());
-                double result = facade.getCurrentResult();
-                ui->display->setText(formatResult(result));
-                resultShown = true;
-
-            } catch (const std::exception& e) {
-                QMessageBox::warning(this, QString::fromUtf8("Error"),
-                                     QString::fromStdString(e.what()));
-            }
-        }
-    }
 }
 
 /*=====================================================================

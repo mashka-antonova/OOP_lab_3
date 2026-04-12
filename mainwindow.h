@@ -33,7 +33,6 @@ private:
     void onDeleteClicked();
     void onParenClicked();
     void onFunctionClicked();
-    void onReciprocalClicked();
     void onMPlusClicked();
     void onMMinusClicked();
     void onMRClicked();

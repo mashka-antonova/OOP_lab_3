@@ -10,14 +10,13 @@
 #include <stdexcept>
 
 CalculatorFacade::CalculatorFacade()
-    : tokenizer(nullptr)
+    : provider()
+    , tokenizer(std::make_unique<Tokenizer>(provider.createTokenCreator()))
     , shuntingYard()
     , evaluator()
     , memory()
     , currentResult(0.0)
 {
-    TokenizerDependencyProvider provider;
-    tokenizer = std::make_unique<Tokenizer>(provider.createTokenCreator());
 }
 
 /*=====================================================================
