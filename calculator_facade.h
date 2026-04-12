@@ -18,10 +18,14 @@ public:
     double calculate(const std::string& expression);
     void compute(const std::string& expression);
 
+    void addToMemory(double value);
+    void subtractFromMemory(double value);
+    void clearMemory();
+    double memoryRecall() const;
+
     void memoryAdd(double value);
     void memorySubtract(double value);
     void memoryClear();
-    double memoryRecall() const;
 
     const std::string& getCurrentExpression() const;
     void setCurrentExpression(const std::string& expression);

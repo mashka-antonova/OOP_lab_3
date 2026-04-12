@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "calculator_facade.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,5 +20,26 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    CalculatorFacade facade;
+    bool resultShown;
+
+    QString formatResult(double value) const;
+    void appendToDisplay(const QString& text);
+
+    void onDigitClicked();
+    void onOperatorClicked();
+    void onEqualClicked();
+    void onClearClicked();
+    void onDeleteClicked();
+    void onParenClicked();
+    void onFunctionClicked();
+    void onReciprocalClicked();
+    void onMPlusClicked();
+    void onMMinusClicked();
+    void onMRClicked();
+    void onMCClicked();
+    void onUndoClicked();
+    void onRedoClicked();
+
 };
 #endif // MAINWINDOW_H

@@ -3,6 +3,10 @@
 #include "tokenizer_dependency_provider.h"
 #include "calculate_command.h"
 
+#include "memory_add_command.h"
+#include "memory_subtract_command.h"
+#include "memory_clear_command.h"
+
 #include <stdexcept>
 
 CalculatorFacade::CalculatorFacade()
@@ -47,8 +51,20 @@ bool CalculatorFacade::canRedo() const {
     return commandManager.canRedo();
 }
 /*=====================================================================
-                            работа с памятью
+                        работа с памятью
 =====================================================================*/
+void CalculatorFacade::addToMemory(double value) {
+    runCommand(std::make_unique<MemoryAddCommand>(this, value));
+}
+
+void CalculatorFacade::subtractFromMemory(double value) {
+    runCommand(std::make_unique<MemorySubtractCommand>(this, value));
+}
+
+void CalculatorFacade::clearMemory() {
+    runCommand(std::make_unique<MemoryClearCommand>(this));
+}
+
 void CalculatorFacade::memoryAdd(double value) {
     memory.add(value);
 }

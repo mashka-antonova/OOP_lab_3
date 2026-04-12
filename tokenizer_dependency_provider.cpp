@@ -14,6 +14,10 @@ TokenizerDependencyProvider::TokenizerDependencyProvider() {
     registerFactory<UnaryOperatorFactory>("unary-", 5, Associativity::Right);
     registerFactory<UnaryOperatorFactory>("sin", 5, Associativity::Right);
     registerFactory<UnaryOperatorFactory>("cos", 5, Associativity::Right);
+    registerFactory<UnaryOperatorFactory>("tg", 5, Associativity::Right);
+    registerFactory<UnaryOperatorFactory>("ctg", 5, Associativity::Right);
+    registerFactory<UnaryOperatorFactory>("sqrt", 5, Associativity::Right);
+    registerFactory<UnaryOperatorFactory>("1/x", 5, Associativity::Right);
     registerFactory<UnaryOperatorFactory>("(", 0, Associativity::Right);
     registerFactory<UnaryOperatorFactory>(")", 0, Associativity::Right);
 
