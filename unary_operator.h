@@ -9,16 +9,13 @@ public:
     UnaryOperator(const std::string& name, int precedence, Associativity associativity);
 
     TokenType type() const override;
-    std::unique_ptr<Token> clone() const override;
-    std::string toString() const override;
 
     const std::string& getName() const;
-    int getPrecedence() const;
-    Associativity getAssociativity() const;
+    int getPrecedence() const override;
+    Associativity getAssociativity() const override;
 
     bool isOpenParen() const;
     bool isCloseParen() const;
-    bool isFunction() const;
 
 private:
     std::string name;

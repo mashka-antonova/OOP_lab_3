@@ -9,12 +9,10 @@ public:
     BinaryOperator(char name, int precedence, Associativity associativity);
 
     TokenType type() const override;
-    std::unique_ptr<Token> clone() const override;
-    std::string toString() const override;
 
     char getName() const;
-    int getPrecedence() const;
-    Associativity getAssociativity() const;
+    int getPrecedence() const override;
+    Associativity getAssociativity() const override;
 
 private:
     char name;

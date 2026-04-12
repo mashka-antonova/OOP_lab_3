@@ -22,7 +22,6 @@ SOURCES += \
     number_factory.cpp \
     operation_factory.cpp \
     shunting_yard.cpp \
-    token.cpp \
     token_creator.cpp \
     tokenizer.cpp \
     tokenizer_dependency_provider.cpp \

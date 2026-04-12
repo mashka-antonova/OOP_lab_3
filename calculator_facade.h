@@ -16,6 +16,7 @@ class CalculatorFacade
 public:
     CalculatorFacade();
     double calculate(const std::string& expression);
+    void compute(const std::string& expression);
 
     void memoryAdd(double value);
     void memorySubtract(double value);

@@ -8,14 +8,6 @@ TokenType UnaryOperator::type() const {
     return TokenType::UnaryOperator;
 }
 
-std::unique_ptr<Token> UnaryOperator::clone() const {
-    return std::make_unique<UnaryOperator>(name, precedence, associativity);
-}
-
-std::string UnaryOperator::toString() const {
-    return getName();
-}
-
 const std::string& UnaryOperator::getName() const {
     return name;
 }
@@ -34,10 +26,4 @@ bool UnaryOperator::isOpenParen() const {
 
 bool UnaryOperator::isCloseParen() const {
     return name == ")";
-}
-
-bool UnaryOperator::isFunction() const {
-    return name == "sin"  || name == "cos"
-           || name == "tg"   || name == "ctg"
-           || name == "sqrt" || name == "1/x";
 }

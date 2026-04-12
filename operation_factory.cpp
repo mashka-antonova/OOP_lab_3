@@ -12,7 +12,7 @@
 #include "unary_minus_operation.h"
 #include "unary_plus_operation.h"
 
-//лучше чтобы объекты операций каждый раз заново создавались или один раз и потом переиспользовались
+//лучше чтобы объекты операций каждый раз заново создавались или один раз и потом переиспользовались?
 
 OperationFactory::OperationFactory() {
     initCreators();

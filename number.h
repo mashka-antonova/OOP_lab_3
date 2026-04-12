@@ -9,8 +9,6 @@ public:
     explicit Number(double num);
 
     TokenType type() const override;
-    std::unique_ptr<Token> clone() const override;
-    std::string toString() const override;
     double getValue() const;
 
 private:
