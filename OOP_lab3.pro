@@ -18,7 +18,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     memory.cpp \
-    memorycommand.cpp \
     number.cpp \
     number_factory.cpp \
     operation_factory.cpp \
@@ -26,7 +25,7 @@ SOURCES += \
     token.cpp \
     token_creator.cpp \
     tokenizer.cpp \
-    tokenizer_provider.cpp \
+    tokenizer_dependency_provider.cpp \
     unary_operator.cpp \
     unary_operator_factory.cpp
 
@@ -50,7 +49,6 @@ HEADERS += \
     memory_add_command.h \
     memory_clear_command.h \
     memory_subtract_command.h \
-    memorycommand.h \
     multiply_operation.h \
     number.h \
     number_factory.h \
@@ -65,8 +63,8 @@ HEADERS += \
     token_creator.h \
     token_factory.h \
     tokenizer.h \
+    tokenizer_dependency_provider.h \
     tokenizer_error.h \
-    tokenizer_provider.h \
     unary_minus_operation.h \
     unary_operator.h \
     unary_operator_factory.h \

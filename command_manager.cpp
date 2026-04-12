@@ -1,5 +1,7 @@
 #include "command_manager.h"
 
+CommandManager::CommandManager() {}
+
 void CommandManager::execute(std::unique_ptr<ICommand> cmd) {
     cmd->execute();
     undoStack.push(std::move(cmd));
