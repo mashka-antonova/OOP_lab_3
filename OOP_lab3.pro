@@ -11,11 +11,14 @@ CONFIG += c++20
 SOURCES += \
     binary_operator.cpp \
     binary_operator_factory.cpp \
+    calculate_command.cpp \
     calculator_facade.cpp \
+    command_manager.cpp \
     evaluator.cpp \
     main.cpp \
     mainwindow.cpp \
     memory.cpp \
+    memorycommand.cpp \
     number.cpp \
     number_factory.cpp \
     operation_factory.cpp \
@@ -31,16 +34,23 @@ HEADERS += \
     add_operation.h \
     binary_operator.h \
     binary_operator_factory.h \
+    calculate_command.h \
     calculator_facade.h \
+    command_manager.h \
     cos_operation.h \
     ctg_operation.h \
     devide_operation.h \
     evaluator.h \
     i_binary_operation.h \
+    i_command.h \
     i_operation.h \
     i_unary_operation.h \
     mainwindow.h \
     memory.h \
+    memory_add_command.h \
+    memory_clear_command.h \
+    memory_subtract_command.h \
+    memorycommand.h \
     multiply_operation.h \
     number.h \
     number_factory.h \
