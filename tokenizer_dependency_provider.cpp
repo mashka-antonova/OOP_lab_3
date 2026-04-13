@@ -27,8 +27,7 @@ TokenizerDependencyProvider::TokenizerDependencyProvider() {
 template<typename T, typename... Args>
 void TokenizerDependencyProvider::registerFactory(const std::string& lexeme, Args&&... args) {
     auto factory = std::make_unique<T>(std::forward<Args>(args)...);
-    factoryMap[lexeme] = factory.get();
-    factoryStorage.push_back(std::move(factory));
+    factoryMap[lexeme] = std::make_shared<T>(std::forward<Args>(args)...);
 }
 
 std::unique_ptr<TokenCreator> TokenizerDependencyProvider::createTokenCreator() {

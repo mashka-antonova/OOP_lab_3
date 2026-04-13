@@ -7,22 +7,19 @@
 class MemorySubtractCommand final : public ICommand {
 public:
     MemorySubtractCommand(CalculatorFacade* receiver, double value)
-        : receiver(receiver), value(value), previousMemory(0.0) {}
+        : receiver(receiver), value(value) {}
 
     void execute() override {
-        previousMemory = receiver->memoryRecall();
         receiver->memorySubtract(value);
     }
 
     void undo() override {
-        receiver->memoryClear();
-        receiver->memoryAdd(previousMemory);
+        receiver->memoryAdd(value);;
     }
 
 private:
     CalculatorFacade* receiver;
     double value;
-    double previousMemory;
 };
 
 #endif // MEMORY_SUBTRACT_COMMAND_H

@@ -6,8 +6,9 @@
 
 class TgOperation : public IUnaryOperation {
     double unaryExecute(double arg) const override {
-        return std::cos(arg) == 0.0 ? throw std::domain_error("Tangent is undefined at this point")
-                                    : std::tan(arg);
+        double radians = arg * (std::numbers::pi / 180.0);
+        return std::cos(radians) == 0.0 ? throw std::domain_error("Tangent is undefined at this point")
+                                    : std::tan(radians);
     }
 };
 

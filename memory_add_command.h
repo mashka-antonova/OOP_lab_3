@@ -15,8 +15,7 @@ public:
     }
 
     void undo() override {
-        receiver->memoryClear();
-        receiver->memoryAdd(previousMemory);
+        receiver->memorySubtract(value);
     }
 
 private:

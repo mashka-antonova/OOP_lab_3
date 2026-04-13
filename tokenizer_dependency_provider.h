@@ -10,8 +10,7 @@ public:
     std::unique_ptr<TokenCreator> createTokenCreator();
 
 private:
-    std::vector<std::unique_ptr<TokenFactory>> factoryStorage;
-    std::map<std::string, TokenFactory*> factoryMap;
+    std::map<std::string, std::shared_ptr<TokenFactory>> factoryMap;
 
     template<typename T, typename... Args>
     void registerFactory(const std::string& lexeme, Args&&... args);

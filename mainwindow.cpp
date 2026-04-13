@@ -179,12 +179,12 @@ void MainWindow::onFunctionClicked() {
 
     if (resultShown) {
         QString current = ui->display->text();
-        ui->display->setText(btn->text() + "(" + current + ")");
+        ui->display->setText(funcName + "(" + current + ")");
         resultShown = false;
         onEqualClicked();
 
     } else
-        appendToDisplay(btn->text() + "(");
+        appendToDisplay(funcName + "(");
 }
 
 /*=====================================================================

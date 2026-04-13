@@ -53,21 +53,6 @@ void Tokenizer::initDispatchTable() {
     };
 }
 
-CharType Tokenizer::classify(char c) const {
-    CharType result = CharType::Unknown;
-    if (std::isspace(c))
-        result = CharType::Whitespace;
-    if (std::isdigit(c))
-        result = CharType::Digit;
-    if (std::isalpha(c))
-        result = CharType::Alpha;
-    auto it = specialCharMap.find(c);
-    if (it != specialCharMap.end())
-        result = it->second;
-
-    return result;
-}
-
 std::vector<std::unique_ptr<Token>> Tokenizer::tokenize(const std::string& expression) const {
     TokenList tokens;
     size_t pos = 0;
@@ -81,6 +66,21 @@ std::vector<std::unique_ptr<Token>> Tokenizer::tokenize(const std::string& expre
         throw TokenizerError("Empty expression");
 
     return tokens;
+}
+
+CharType Tokenizer::classify(char c) const {
+    CharType result = CharType::Unknown;
+    if (std::isspace(c))
+        result = CharType::Whitespace;
+    if (std::isdigit(c))
+        result = CharType::Digit;
+    if (std::isalpha(c))
+        result = CharType::Alpha;
+    auto it = specialCharMap.find(c);
+    if (it != specialCharMap.end())
+        result = it->second;
+
+    return result;
 }
 
 void Tokenizer::handleWhiteSpace(const std::string& expr, size_t& pos, TokenList& tokens) const {

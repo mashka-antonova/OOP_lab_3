@@ -6,7 +6,8 @@
 
 class SinOperation final : public IUnaryOperation {
     double unaryExecute(double arg) const override {
-        return std::sin(arg);
+        double radians = arg * (std::numbers::pi / 180.0);
+        return std::sin(radians);
     }
 };
 

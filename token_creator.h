@@ -7,7 +7,7 @@
 class TokenCreator {
 
 public:
-    explicit TokenCreator(std::map<std::string, TokenFactory*> factories)
+    explicit TokenCreator(std::map<std::string, std::shared_ptr<TokenFactory>> factories)
         : factories(std::move(factories)) {}
 
     bool isOperator(const std::string& lexeme) const;
@@ -15,7 +15,7 @@ public:
     std::unique_ptr<Token> createToken(const std::string& type, const std::string& lexeme) const;
 
 private:
-    std::map<std::string, TokenFactory*> factories;
+    std::map<std::string, std::shared_ptr<TokenFactory>> factories;
 };
 
 #endif // TOKEN_CREATOR_H

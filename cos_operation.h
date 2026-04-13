@@ -6,7 +6,8 @@
 
 class CosOperation : public IUnaryOperation {
     double unaryExecute(double arg) const override {
-        return std::cos(arg);
+        double radians = arg * (std::numbers::pi / 180.0);
+        return std::cos(radians);
     }
 };
 
