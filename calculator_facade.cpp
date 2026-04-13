@@ -15,7 +15,8 @@ CalculatorFacade::CalculatorFacade()
     , shuntingYard()
     , evaluator()
     , memory()
-    , currentResult(0.0)
+    , commandManager()
+    , state()
 {
 }
 
@@ -84,19 +85,19 @@ double CalculatorFacade::memoryRecall() const {
                     управление состоянием экрана
 =====================================================================*/
 const std::string& CalculatorFacade::getCurrentExpression() const {
-    return currentExpression;
+    return state.getExpression();
 }
 
 void CalculatorFacade::setCurrentExpression(const std::string& expression) {
-    currentExpression = expression;
+    state.setExpression(expression);
 }
 
 double CalculatorFacade::getCurrentResult() const {
-    return currentResult;
+    return state.getResult();
 }
 
 void CalculatorFacade::setCurrentResult(double value) {
-    currentResult = value;
+    state.setResult(value);
 }
 
 /*=====================================================================

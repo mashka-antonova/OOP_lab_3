@@ -34,6 +34,7 @@ HEADERS += \
     binary_operator_factory.h \
     calculate_command.h \
     calculator_facade.h \
+    calculator_state.h \
     command_manager.h \
     cos_operation.h \
     ctg_operation.h \

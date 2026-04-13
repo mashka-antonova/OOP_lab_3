@@ -11,6 +11,7 @@
 #include "memory.h"
 #include "command_manager.h"
 #include "tokenizer_dependency_provider.h"
+#include "calculator_state.h"
 
 class CalculatorFacade
 {
@@ -47,9 +48,8 @@ private:
     Evaluator evaluator;
     Memory memory;
     CommandManager commandManager;
+    CalculatorState state;
 
-    std::string currentExpression;
-    double currentResult;
 };
 
 #endif // CALCULATOR_FACADE_H
