@@ -6,7 +6,7 @@
 
 class CalculateCommand final : public ICommand {
 public:
-    CalculateCommand(CalculatorFacade* receiver, std::string expression);
+    CalculateCommand(CalculatorFacade* receiver, const std::string& expression, double result);
 
     void execute() override;
     void undo() override;

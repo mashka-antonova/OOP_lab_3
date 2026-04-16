@@ -1,36 +1,64 @@
 #include "calculator_facade.h"
-
-#include "tokenizer_dependency_provider.h"
 #include "calculate_command.h"
-
 #include "memory_add_command.h"
 #include "memory_subtract_command.h"
 #include "memory_clear_command.h"
-
+#include "unary_operator.h"
 #include <stdexcept>
 
 CalculatorFacade::CalculatorFacade()
     : provider()
-    , tokenizer(std::make_unique<Tokenizer>(provider.createTokenCreator()))
+    , tokenCreator(provider.createTokenCreator())
     , shuntingYard()
     , evaluator()
     , memory()
     , commandManager()
     , state()
-{
+{}
+
+void CalculatorFacade::addNumberToken(double value) {
+    tokenQueue.push_back(tokenCreator->createToken("number", std::to_string(value)));
 }
 
-/*=====================================================================
-                    главный интрфейс вычислений
-=====================================================================*/
-void CalculatorFacade::compute(const std::string& expression) {
-    std::unique_ptr<ICommand> cmd = std::make_unique<CalculateCommand>(this, expression);
+void CalculatorFacade::addOperatorToken(const std::string& op) {
+    std::string currentOp = op;
+    if (op == "-" || op == "+") {
+        if (tokenQueue.empty() ||
+            (tokenQueue.back()->type() == TokenType::BinaryOperator) ||
+            (tokenQueue.back()->type() == TokenType::UnaryOperator &&
+             static_cast<UnaryOperator*>(tokenQueue.back().get())->isOpenParen())) {
+            currentOp = "unary" + op;
+        }
+    }
+
+    tokenQueue.push_back(tokenCreator->createToken(currentOp, currentOp));
+}
+
+void CalculatorFacade::clearTokenQueue() {
+    tokenQueue.clear();
+}
+
+void CalculatorFacade::removeLastToken() {
+    if (!tokenQueue.empty()) {
+        tokenQueue.pop_back();
+    }
+}
+
+double CalculatorFacade::calculateQueue() {
+    double result = state.getResult();
+    if (!tokenQueue.empty()) {
+        std::vector<std::unique_ptr<Token>> rpn = shuntingYard.convertToRPN(std::move(tokenQueue));
+        tokenQueue.clear();
+        result = evaluator.evaluate(rpn);
+    }
+    return result;
+}
+
+void CalculatorFacade::computeAndSave(const std::string& displayExpression, double calculatedResult) {
+    std::unique_ptr<ICommand> cmd = std::make_unique<CalculateCommand>(this, displayExpression, calculatedResult);
     runCommand(std::move(cmd));
 }
 
-/*=====================================================================
-                управление историей и командами
-=====================================================================*/
 void CalculatorFacade::runCommand(std::unique_ptr<ICommand> cmd) {
     commandManager.execute(std::move(cmd));
 }
@@ -50,9 +78,7 @@ bool CalculatorFacade::canUndo() const {
 bool CalculatorFacade::canRedo() const {
     return commandManager.canRedo();
 }
-/*=====================================================================
-                        работа с памятью
-=====================================================================*/
+
 void CalculatorFacade::addToMemory(double value) {
     runCommand(std::make_unique<MemoryAddCommand>(this, value));
 }
@@ -81,9 +107,7 @@ double CalculatorFacade::memoryRecall() const {
     return memory.get();
 }
 
-/*=====================================================================
-                    управление состоянием экрана
-=====================================================================*/
+
 const std::string& CalculatorFacade::getCurrentExpression() const {
     return state.getExpression();
 }
@@ -98,18 +122,6 @@ double CalculatorFacade::getCurrentResult() const {
 
 void CalculatorFacade::setCurrentResult(double value) {
     state.setResult(value);
-}
-
-/*=====================================================================
-                        логика вычислений
-=====================================================================*/
-double CalculatorFacade::calculate(const std::string& expression) {
-    if (expression.empty())
-        throw std::runtime_error("CalculatorFacade: expression is empty");
-
-    std::vector<std::unique_ptr<Token>> lexemes = tokenizer->tokenize(expression);
-    std::vector<std::unique_ptr<Token>> rpn = shuntingYard.convertToRPN(std::move(lexemes));
-    return evaluator.evaluate(rpn);
 }
 
 

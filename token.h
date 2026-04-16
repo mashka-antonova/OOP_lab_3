@@ -5,13 +5,13 @@
 #include <vector>
 #include <string>
 
-enum class TokenType {
+enum class TokenType { //
     Number,
     UnaryOperator,
     BinaryOperator,
 };
 
-enum class Associativity {
+enum class Associativity { //
     Left,
     Right
 };

@@ -92,42 +92,58 @@ void MainWindow::appendToDisplay(const QString& text)
     ui->display->setText(ui->display->text() + text);
 }
 
+void MainWindow::flushNumberBuffer() {
+    if (!numberBuffer.isEmpty()) {
+        facade.addNumberToken(numberBuffer.toDouble());
+        numberBuffer.clear();
+    }
+}
+
 /*=====================================================================
                             цифры и точка
 =====================================================================*/
 void MainWindow::onDigitClicked() {
     QPushButton* btn = qobject_cast<QPushButton*>(sender());
     if (btn) {
-        if (resultShown)
+        if (resultShown) {
             ui->display->clear();
-
+            facade.clearTokenQueue();
+            numberBuffer.clear();
+            resultShown = false;
+        }
+        numberBuffer += btn->text();
         appendToDisplay(btn->text());
-        resultShown = false;
     }
 }
 
 /*=====================================================================
-        операторы, как будто можно соед с верх, но мало ли измен
+        операторы, как будто можно соед с верх, но мало ли измен - да
 =====================================================================*/
-
 void MainWindow::onOperatorClicked() {
     QPushButton* btn = qobject_cast<QPushButton*>(sender());
     if (btn) {
+        if (resultShown) resultShown = false;
+
+        flushNumberBuffer();
+        facade.addOperatorToken(btn->text().toStdString());
         appendToDisplay(btn->text());
-        resultShown = false;
     }
 }
 
 /*=====================================================================
-                            скобочки
+                            скобочки - ъ?
 =====================================================================*/
 void MainWindow::onParenClicked() {
     QPushButton* btn = qobject_cast<QPushButton*>(sender());
     if (!btn) return;
 
-    if (resultShown && btn->text() == "(")
+    if (resultShown && btn->text() == "(") {
         ui->display->clear();
+        facade.clearTokenQueue();
+    }
 
+    flushNumberBuffer();
+    facade.addOperatorToken(btn->text().toStdString());
     appendToDisplay(btn->text());
     resultShown = false;
 }
@@ -136,33 +152,43 @@ void MainWindow::onParenClicked() {
                         равно/очистка/удаление
 =====================================================================*/
 void MainWindow::onEqualClicked() {
+    flushNumberBuffer();
     QString expression = ui->display->text().trimmed();
+
     if (!expression.isEmpty()) {
         try {
-            facade.compute(expression.toStdString());
-            double result = facade.getCurrentResult();
+            double result = facade.calculateQueue();
+            facade.computeAndSave(expression.toStdString(), result);
+
             ui->display->setText(formatResult(result));
             resultShown = true;
         } catch (const std::exception& e) {
-            QMessageBox::warning(this, QString::fromUtf8("Error"), QString::fromStdString(e.what()));
+            QMessageBox::warning(this, "Error", QString::fromStdString(e.what()));
+            facade.clearTokenQueue();
         }
     }
 }
 
 void MainWindow::onClearClicked() {
     ui->display->clear();
+    facade.clearTokenQueue();
+    numberBuffer.clear();
     resultShown = false;
 }
 
 void MainWindow::onDeleteClicked() {
     if (resultShown) {
-        ui->display->clear();
-        resultShown = false;
+        onClearClicked();
     } else {
         QString text = ui->display->text();
         if (!text.isEmpty()) {
             text.chop(1);
             ui->display->setText(text);
+
+            if (!numberBuffer.isEmpty())
+                numberBuffer.chop(1);
+            else
+                facade.removeLastToken();
         }
     }
 }
@@ -178,13 +204,21 @@ void MainWindow::onFunctionClicked() {
     if (funcName == "1/x") funcName = "recip";
 
     if (resultShown) {
-        QString current = ui->display->text();
-        ui->display->setText(funcName + "(" + current + ")");
-        resultShown = false;
-        onEqualClicked();
+        double currentResult = facade.getCurrentResult();
+        facade.clearTokenQueue();
+        facade.addOperatorToken(funcName.toStdString());
+        facade.addOperatorToken("(");
+        facade.addNumberToken(currentResult);
+        facade.addOperatorToken(")");
 
-    } else
+        ui->display->setText(funcName + "(" + formatResult(currentResult) + ")");
+        onEqualClicked();
+    } else {
+        flushNumberBuffer();
+        facade.addOperatorToken(funcName.toStdString());
+        facade.addOperatorToken("(");
         appendToDisplay(funcName + "(");
+    }
 }
 
 /*=====================================================================

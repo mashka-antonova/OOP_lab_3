@@ -33,3 +33,16 @@ void TokenizerDependencyProvider::registerFactory(const std::string& lexeme, Arg
 std::unique_ptr<TokenCreator> TokenizerDependencyProvider::createTokenCreator() {
     return std::make_unique<TokenCreator>(factoryMap);
 }
+
+
+/*
+class parses {
+    lexem parse(string lexem) {
+        operator op = operatorPasrser.parse(lexem);
+        if (op == nullptr) {
+            op = operandPasrser.parse(lexem);
+        }
+        return op;
+    }
+};
+*/

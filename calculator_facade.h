@@ -4,7 +4,6 @@
 #include <string>
 #include <memory>
 
-#include "tokenizer.h"
 #include "shunting_yard.h"
 #include "evaluator.h"
 #include "i_command.h"
@@ -17,8 +16,13 @@ class CalculatorFacade
 {
 public:
     CalculatorFacade();
-    double calculate(const std::string& expression);
-    void compute(const std::string& expression);
+    void addNumberToken(double value);
+    void addOperatorToken(const std::string& op);
+    void clearTokenQueue();
+    void removeLastToken();
+    double calculateQueue();
+
+    void computeAndSave(const std::string& displayExpression, double calculatedResult);
 
     void addToMemory(double value);
     void subtractFromMemory(double value);
@@ -43,7 +47,8 @@ public:
 
 private:
     TokenizerDependencyProvider provider;
-    std::unique_ptr<Tokenizer> tokenizer;
+    std::unique_ptr<TokenCreator> tokenCreator;
+    std::vector<std::unique_ptr<Token>> tokenQueue;
     ShuntingYard shuntingYard;
     Evaluator evaluator;
     Memory memory;

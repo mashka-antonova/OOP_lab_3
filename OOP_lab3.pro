@@ -23,7 +23,6 @@ SOURCES += \
     operation_factory.cpp \
     shunting_yard.cpp \
     token_creator.cpp \
-    tokenizer.cpp \
     tokenizer_dependency_provider.cpp \
     unary_operator.cpp \
     unary_operator_factory.cpp
@@ -62,9 +61,7 @@ HEADERS += \
     token.h \
     token_creator.h \
     token_factory.h \
-    tokenizer.h \
     tokenizer_dependency_provider.h \
-    tokenizer_error.h \
     unary_minus_operation.h \
     unary_operator.h \
     unary_operator_factory.h \

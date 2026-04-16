@@ -22,6 +22,8 @@ private:
     Ui::MainWindow *ui;
     CalculatorFacade facade;
     bool resultShown;
+    QString numberBuffer;
+    void flushNumberBuffer();
 
     QString formatResult(double value) const;
     void appendToDisplay(const QString& text);
